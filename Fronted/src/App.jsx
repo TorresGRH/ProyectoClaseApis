@@ -1,14 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect } from 'react'
 import './App.css'
+import { Card } from './components/Card'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    fetch('http://localhost:3000/products')
+      .then(response => response.json())
+      .then(data => console.log(data))
+  }, [])
 
   return (
     <>
-      <h1>Mi primera app con Vite</h1>
+      <h1>Productos</h1>
+      <Card />
     </>
   )
 }
