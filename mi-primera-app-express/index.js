@@ -37,7 +37,7 @@ app.get('/products', (req, res) => {
 
 app.get('/products/:id', (req, res) => {
     const { id } = req.params;
-    const product = products.find((products) => products.id === parseInt(id));
+    const product = products.find((products) => products.id === id);
 
 if (!product) {
     return res.status(404).json({
@@ -54,9 +54,22 @@ res.status(200).json({
 });
 });
 
+//create product - http://localhost:3000/products//
+app.post('/products', (req, res) => {
+    const { id, name, price, category, stock, image } = req.body;
+    const product = {id: (products.length + 1).toString(), name, price, category, stock, image};
+    products.push(product);
+    res.json({
+        mensaje: 'Producto creado',
+        timestamp: new Date().toISOString(),
+        status: 'success',
+        product: product
+    });
+});
+
 //iniciar servidor//
 
 app.listen(PORT, () => {
     console.log(`Servidor en http://localhost:${PORT}`);
 });
- 
+
